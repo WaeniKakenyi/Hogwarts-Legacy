@@ -33,14 +33,15 @@ def physical_attributes(nested_list):
             except:
                 pass
     return nested_list
+
 # Scrape for the hogwarts staff
-elements = driver.find_elements(By.XPATH, '//*[@id="mw-content-text"]/div/ul[6]/li/a[1]')
+driver.get('https://harrypotter.fandom.com/wiki/Hogwarts_Legacy')
+staff = driver.find_elements(By.XPATH, '//*[@id="mw-content-text"]/div/ul[6]/li/a[1]')
 hogwarts_staff = []
-physical_atts = ['species', 'gender', 'hair colour', 'eye colour','skin colour']
-for element in elements:
+for value in staff:
     hogwarts_staff.append({
-        'staff': element.text,
-        'url':element.get_attribute('href'),
+        'name': value.text,
+        'url':value.get_attribute('href'),
         'species': None,
         'gender': None,
         'hair colour': None,
@@ -50,6 +51,7 @@ for element in elements:
 physical_attributes(hogwarts_staff)
 
 # Scrape for the hogwarts students by house
+driver.get('https://harrypotter.fandom.com/wiki/Hogwarts_Legacy')
 house_names = ['Hufflepuff', 'Gryffindor', 'Ravenclaw', 'Slytherin']
 houses_students = []
 for name in house_names:
@@ -71,4 +73,60 @@ for name in house_names:
                 'skin colour': None
             })
 physical_attributes(houses_students)
+
 # Scraping for the historical wizards
+driver.get('https://harrypotter.fandom.com/wiki/Hogwarts_Legacy')
+wizard_titles = ['Keepers','Others']
+historical_wizards = []
+for wizard_title in wizard_titles:
+    wizards = driver.find_elements(By.XPATH, f'//*[@id="mw-content-text"]/div/ul[{wizard_titles.index(wizard_title)+7}]/li/a')
+    for wizard in wizards:
+        historical_wizards.append({
+            'title': wizard_title,
+            'name': wizard.text,
+            'url': wizard.get_attribute('href'),
+            'species': None,
+            'gender': None,
+            'hair colour': None,
+            'eye colour': None,
+            'skin colour': None
+        })
+physical_attributes(historical_wizards)
+
+# Scraping for the villagers in Hogsmead
+driver.get('https://harrypotter.fandom.com/wiki/Hogwarts_Legacy')
+villagers = driver.find_elements(By.XPATH, '//*[@id="mw-content-text"]/div/ul[9]/li/a[1]')
+hogsmead_villagers = []
+for villager in villagers:
+    hogsmead_villagers.append({
+        'name': villager.text,
+        'url':villager.get_attribute('href'),
+        'species': None,
+        'gender': None,
+        'hair colour': None,
+        'eye colour': None,
+        'skin colour': None
+        })
+physical_attributes(hogsmead_villagers)
+
+# Scraping for enemies 
+driver.get('https://harrypotter.fandom.com/wiki/Hogwarts_Legacy')
+gang_members = driver.find_elements(By.XPATH, '//*[@id="mw-content-text"]/div/ul[10]/li/a[1]')
+rookwood_gang = []
+for gang_member in gang_members:
+    rookwood_gang.append({
+        'name': gang_member.text,
+        'url':gang_member.get_attribute('href'),
+        'species': None,
+        'gender': None,
+        'hair colour': None,
+        'eye colour': None,
+        'skin colour': None
+        })
+physical_attributes(rookwood_gang)
+
+# Scraping for other characters one might encounter in the game
+
+
+# Scraping for the different locations 
+
